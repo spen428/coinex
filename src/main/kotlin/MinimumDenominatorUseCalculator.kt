@@ -1,3 +1,6 @@
+import java.util.*
+
+
 class MinimumDenominatorUseCalculator : ICalc {
     private val denominations = arrayOf(1, 5, 10, 50, 100, 500, 1000, 5000, 10000)
 
@@ -20,6 +23,7 @@ class MinimumDenominatorUseCalculator : ICalc {
     }
 
     override fun combinatorialSum(amount: Int): List<Exchange> {
-        return emptyList()
+        val results = CombinationSumGenerator.combinationSum(denominations.toIntArray(), amount)
+        return results.map { Exchange(it, emptyList()) }
     }
 }
