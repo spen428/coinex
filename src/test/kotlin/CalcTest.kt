@@ -4,6 +4,7 @@ import org.junit.jupiter.params.converter.ConvertWith
 import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.ValueSource
 import kotlin.test.assertContentEquals
+import kotlin.test.assertEquals
 
 internal class CalcTest {
     private val sut = MinimumDenominatorUseCalculator()
@@ -30,15 +31,16 @@ internal class CalcTest {
 
     @Test
     fun `Enumerate all unique combinations`() {
-        val results = sut.combinatorialSum(5)
-        val expected = listOf(
-            Exchange(listOf(5), emptyList()),
-            Exchange(listOf(1, 1, 1, 1, 1), emptyList()),
-        ).sortedBy { it.toString() }
-        assertContentEquals(
-            expected,
-            results
-        )
+        val results = sut.combinatorialSum(349)
+        assertEquals(5500, results.size)
+    }
+
+    @Test
+    fun `Enumerate minimum combinations`() {
+        val results = sut.minimumCombinatorialSum(349)
+        assertEquals(1, results.size)
+        assertEquals(0, results[0].change.size)
+        assertEquals("[1, 1, 1, 1, 5, 10, 10, 10, 10, 100, 100, 100]", results[0].toPay.toString())
     }
 }
 

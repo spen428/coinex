@@ -26,4 +26,10 @@ class MinimumDenominatorUseCalculator : ICalc {
         val results = CombinationSumGenerator.combinationSum(denominations.toIntArray(), amount)
         return results.map { Exchange(it, emptyList()) }
     }
+
+    override fun minimumCombinatorialSum(amount: Int): List<Exchange> {
+        val results = combinatorialSum(amount)
+        val smallestExchangeSize = results.minOf { it.toPay.size + it.change.size }
+        return results.filter { it.toPay.size + it.change.size == smallestExchangeSize }
+    }
 }
